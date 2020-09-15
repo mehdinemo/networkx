@@ -1,9 +1,7 @@
 """Unit tests for the :mod:`networkx.algorithms.community.kernighan_lin`
 module.
-
 """
 import pytest
-
 import networkx as nx
 from networkx.algorithms.community import kernighan_lin_bisection
 from itertools import permutations
@@ -57,3 +55,15 @@ def test_multigraph():
         assert_partition_equal(
             [A, B], [{mapping[0], mapping[1]}, {mapping[2], mapping[3]}]
         )
+
+
+def test_defined_partition_str_nodes():
+    G = nx.Graph([("A", "B"), ("A", "C"), ("B", "C"), ("C", "D")])
+    partition = ({"A", "B"}, {"C", "D"})
+    kernighan_lin_bisection(G, partition)
+
+
+def test_defined_partition_int_nodes():
+    G = nx.Graph([(1, 2), (1, 3), (2, 3), (3, 4)])
+    partition = ({1, 2}, {3, 4})
+    kernighan_lin_bisection(G, partition)
